@@ -7,7 +7,7 @@ reload_nginx_config() {
 	# Create temporary config for Nginx
 	cp -r /etc/nginx-wallarm /tmp/
 	# Add/overwrite new files there
-	cp -rf /conf/nginx-wallarm /tmp/
+	cp -rf /conf/nginx/* /tmp/nginx-wallarm/
 	# Check new configuration of Nginx
 	/usr/sbin/nginx-wallarm -t -p /tmp/nginx-wallarm -c nginx.conf
 	if [ $? -eq 0 ] ; then
