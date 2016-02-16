@@ -5,7 +5,7 @@ if [[ ! -f /root/.first_run ]]; then
     cp -p /conf/nginx/license.key /etc/wallarm/
     chown root:wallarm /etc/wallarm/license.key
     sed -i "s/SLAB_ALLOC_ARENA=.*/SLAB_ALLOC_ARENA=${SLAB_ALLOC_ARENA:-"0.2"}/g" /etc/sysconfig/wallarm-tarantool
-    /usr/share/wallarm-common/addnode -u ${WALLARM_USER} -p ${WALLARM_PASSWORD} -n ${WALLARM_NODENAME:-"wallarm-`hostname`"}
+    /usr/share/wallarm-common/addnode -u ${WALLARM_USER} -p ${WALLARM_PASSWORD} -n ${WALLARM_NODENAME:-"wallarm-`hostname`"} -f
     touch /root/.first_run
 fi
 
