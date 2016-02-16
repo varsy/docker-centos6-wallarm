@@ -2,7 +2,6 @@
 
 
 if [[ ! -f /root/.first_run ]]; then
-    mv /etc/nginx /etc/nginx.orig
     cp -p /conf/nginx/license.key /etc/wallarm/
     chown root:wallarm /etc/wallarm/license.key
     sed -i "s/SLAB_ALLOC_ARENA=.*/SLAB_ALLOC_ARENA=${SLAB_ALLOC_ARENA:-"0.2"}/g" /etc/sysconfig/wallarm-tarantool
