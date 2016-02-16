@@ -7,6 +7,7 @@ RUN yum install --enablerepo=extras -y epel-release centos-release-SCL \
 
 RUN sed -i 's|/etc/nginx/||g' /etc/nginx/nginx.conf
 
+ADD functions.sh /
 ADD run-services.sh /
 RUN chmod +x /run-services.sh ; mkdir -p /conf/nginx
 
