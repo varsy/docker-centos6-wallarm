@@ -14,7 +14,7 @@ fi
 
 reload_nginx_config
 
-trap "/sbin/service nginx-wallarm stop; /sbin/service nginx-tarantool stop; killall reloader.sh; killall etcdctl; killall tail; exit 0" SIGINT SIGTERM SIGHUP
+trap "/sbin/service nginx-wallarm stop; /sbin/service wallarm-tarantool stop; killall reloader.sh; killall etcdctl; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
 /sbin/service wallarm-tarantool start
 /sbin/service nginx-wallarm start 
