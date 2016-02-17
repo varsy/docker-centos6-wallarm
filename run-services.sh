@@ -2,10 +2,12 @@
 
 
 if [[ ! -f /root/.first_run ]]; then
+    sed -i "/pam_loginuid.so/ s/\(.*\)/#\1/" /etc/pam.d/crond
     cp -p /conf/nginx/license.key /etc/wallarm/
     chown root:wallarm /etc/wallarm/license.key
     sed -i "s/SLAB_ALLOC_ARENA=.*/SLAB_ALLOC_ARENA=${SLAB_ALLOC_ARENA:-"0.2"}/g" /etc/sysconfig/wallarm-tarantool
     /usr/share/wallarm-common/addnode -u ${WALLARM_USER} -p ${WALLARM_PASSWORD} -n ${WALLARM_NODENAME:-"wallarm-`hostname`"} -f
+    /usr/share/wallarm-common/syncnode
     touch /root/.first_run
 fi
 
@@ -15,6 +17,7 @@ reload_nginx_config
 
 trap "/sbin/service nginx-wallarm stop; /sbin/service wallarm-tarantool stop; killall reloader.sh; killall etcdctl; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
+/sbin/service crond restart
 /sbin/service wallarm-tarantool start
 /sbin/service nginx-wallarm start 
 
