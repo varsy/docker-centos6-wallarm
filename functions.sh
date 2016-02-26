@@ -13,7 +13,8 @@ reload_nginx_config() {
 	if [ $? -eq 0 ] ; then
 	    # Copy tested configuration to production and reload
 	    cp -rfp /tmp/nginx-wallarm /etc/
-	    /sbin/service nginx-wallarm reload
+            echo -n "Reloading nginx... "
+            kill -HUP `cat /var/run/nginx.pid` && echo "ok"
 	    etcdctl set ${ETCDCTL_NOTIFY} reloaded
 	    echo "New configuration applied"
 	else
